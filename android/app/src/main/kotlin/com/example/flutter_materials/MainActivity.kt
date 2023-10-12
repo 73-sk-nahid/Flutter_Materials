@@ -1,9 +1,18 @@
 package com.example.flutter_materials
 
-import io.flutter.embedding.android.FlutterActivity
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
 import io.flutter.embedding.android.SplashScreen
 
-class MainActivity: FlutterActivity() {
+class SplashView : SplashScreen {
+    override fun createSplashView(context: Context, savedInstanceState: Bundle?): View? {
+        return LayoutInflater.from(context).inflate(R.layout.splash_view, null, false)
+    }
 
-    override fun provideSplashScreen(): SplashScreen? = SplashView()
+    override fun transitionToFlutter(onTransitionComplete: Runnable) {
+        // Implement the transition logic
+        onTransitionComplete.run()
+    }
 }

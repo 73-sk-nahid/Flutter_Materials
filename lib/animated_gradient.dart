@@ -88,7 +88,12 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       //themeMode: appThemeState.isDarkMdeEnabled ? ThemeData.dark: ThemeMode.light,
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Flutter Material"),
+          title: Text(
+            "Flutter Material",
+            style: TextStyle(
+              color: Colors.black,
+            ),
+          ),
         ),
         body: Center(
           child: AnimatedBuilder(

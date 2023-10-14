@@ -82,6 +82,9 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       debugShowCheckedModeBanner: false,
       theme: ThemeData.dark(),
       home: Scaffold(
+        appBar: AppBar(
+          title: Text("Flutter Materials"),
+        ),
         body: Center(
           child: AnimatedBuilder(
               animation: _controller,

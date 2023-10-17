@@ -17,9 +17,9 @@ class AppTheme{
   );
 
   static final darkTheme = ThemeData(
-    scaffoldBackgroundColor: Colors.blue,
+    scaffoldBackgroundColor: Colors.black,
     appBarTheme: const AppBarTheme(
-      color: Colors.black,
+      color: Colors.teal,
       iconTheme: IconThemeData(
         color: Colors.white,
       ),

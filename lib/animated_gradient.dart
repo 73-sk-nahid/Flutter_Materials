@@ -3,34 +3,18 @@ import 'package:flutter/services.dart';
 import 'package:flutter_materials/app_theme.dart';
 import 'package:flutter_materials/theme_provider.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'app_theme.dart';
 
 void main() {
-  runApp(const ProviderScope(child: MyApp()));
+  runApp(ProviderScope(child: const MyApp()));
 }
 
-class MyApp extends HookConsumerWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyApp extends StatefulWidget {
+  const MyApp({super.key});
 
   @override
-  //State<MyApp> createState() => _MyAppState();
-
-  @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    // TODO: implement build
-    SystemChrome.setEnabledSystemUIMode(SystemUiMode.leanBack);
-    final appThemeState = ref.watch(appThemeStateNotifier);
-
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.lightTheme,
-      darkTheme: AppTheme.darkTheme,
-      themeMode: appThemeState.isDarkModeEnabled ? ThemeMode.dark : ThemeMode.light,
-      //_MyAppState(),
-    );
-  }
+  State<MyApp> createState() => _MyAppState();
 }
-
-
 
 class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
@@ -104,11 +88,27 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
       //themeMode: appThemeState.isDarkMdeEnabled ? ThemeData.dark: ThemeMode.light,
       home: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            "Flutter Material",
-            style: TextStyle(
-              color: Colors.black,
-            ),
+          elevation: 2.0,
+          //centerTitle: true,
+          title: const Row(
+            children: [
+              Text(
+                "Flutter Material",
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+              ),
+              Expanded(
+                  child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: [
+                  Text("Light Mode"),
+                  DarkModeSwitch(),
+                  //Text("Dark Mode"),
+                  //Text("Hello"),
+                ],
+              ))
+            ],
           ),
         ),
         body: Center(
@@ -137,3 +137,21 @@ class _MyAppState extends State<MyApp> with SingleTickerProviderStateMixin {
   }
 }
 
+class DarkModeSwitch extends HookConsumerWidget {
+  const DarkModeSwitch({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appThemeState = ref.watch(appThemeStateNotifier);
+    return Switch(
+      value: appThemeState.isDarkModeEnabled,
+      onChanged: (enabled) {
+        if (enabled) {
+          appThemeState.setDarkTheme();
+        } else {
+          appThemeState.setLightTheme();
+        }
+      },
+    );
+  }
+}
